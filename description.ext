@@ -1,0 +1,2993 @@
+#include "DK_Functions\playerBonus\littleJacob\defines.hpp"
+#include  "DK_Functions\playerBonus\littleJacob\dialogs.hpp"
+#include "DK_Functions\forceRespawn\dialogs.hpp"
+
+/*
+ReviveMode = 1;
+ReviveUnconsciousStateMode = 0;
+ReviveRequiredTrait = 0;
+ReviveRequiredItems = 0;
+ReviveRequiredItemsFakConsumed = 0;
+ReviveDelay = 9;
+ReviveMedicSpeedMultiplier = 1;
+ReviveForceRespawnDelay = 1.5;
+ReviveBleedOutDelay = 135;
+*/
+
+disabledAI = 1;
+
+
+// BettleEye & function setup
+class CfgRemoteExec
+{
+	// List of script functions allowed to be sent from client via remoteExec
+	class Functions
+	{
+		mode = 1;
+		jip = 1;
+
+
+		// Functions
+		class DK_fnc_initPlayerServer
+		{
+			allowedTargets = 2;
+		};
+
+		class BIS_fnc_effectKilledAirDestruction {};
+		class BIS_fnc_effectKilledSecondaries {};
+		class BIS_fnc_objectVar {};
+		class BIS_fnc_setCustomSoundController {};
+		class BIS_fnc_reviveinitaddplayer {};
+
+
+		// Stunt Jump
+		class DK_fnc_padRjump
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_mateStunt_cl
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+
+		// Money
+		class DK_fnc_deleteVehicle
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_handlePlayerMoney
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_bonus_amb_verifMoney
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_checkMoneyRespawn
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+
+		// Civ Action
+		class DK_fnc_EH_Flee_CivPed
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+
+		// Scores
+		class DK_fnc_addScr
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_tabScr
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+
+		// UI
+		class DK_fnc_wndd_Fr_Dwn
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_wndd_En_Dwn
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_wndd_Fr_hit
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_wndd_En_hit
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_hdlPlyKF
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+
+		// Radio
+		class DK_fnc_MP3car_NextTracks
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_MP3car_OnOff
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+
+		// Divers
+		class DK_fnc_flipVeh
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_randomLip_cl
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_SP_setVarT
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_SP_setVarF
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_MIS_fnc_flipVeh
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_MIS_fnc_liftFlipVeh
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_checkWpHold_CUM
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_police_siren_OnOff
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_say3Db
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_hide
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_hideGlob
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_showVeh
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_init_veh
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_setInfoScorePLayerCo
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_addMpEH_respawn
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_AddHdlPlyScrKF
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_UI_familyMbsNb
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+
+		// Repair
+		class zlt_fnc_partrepair
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+		class DK_fnc_repairSetVar
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_removeActRepair
+		{
+			allowedTargets = 0;
+			jip = 0;
+		};
+
+
+		// Bonus
+		class DK_fnc_bonus_amb_create
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_bonus_LJ_verifMoney
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_bonus_LJ_handleIfPlyrAlwd
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_addEhServ_boost
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_crtBoostSmoke
+		{
+			allowedTargets = 2;
+			jip = 0;
+		};
+
+		class DK_fnc_addAction_boost_cl
+		{
+			allowedTargets = 0;
+			jip = 1;
+		};
+	};
+};
+
+
+/// PARAMETERS
+class Params
+{
+
+///	// Difficulty
+	class Par_nfo_Empty0
+	{
+		title =  " ";
+		values[] = {0};
+		texts[] = {" "};
+
+		default = 0;
+	};
+
+	class Par_nfo_Difficulty
+	{
+		title = "-----------|  DIFFICULTY  |-----------";
+		values[] = {0};
+		texts[] = {""};
+
+		default = 0;
+	};
+
+	class Par_weaponStart
+	{
+		title = "Weapon at respawn";
+		values[] = {0, 1, 2, 3};
+		texts[] = {"AR - Mk20C 5.56 : Easy","SMG - Vermin .45ACP : Normal  -  (default)", "Handgun - ACP-C2 .45ACP : Hard", "No weapon. I'm a crazy man with my car!"};
+
+		default = 1;
+	};
+
+	class Par_moneyStart
+	{
+		title = "Starting money";
+		values[] = {0, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 10000, 20000, 30000};
+		texts[] = { "$ 0  -  (default)", "$ 250", "$ 500", "$ 750", "$ 1000", "$ 1250", "$ 1500", "$ 1750", "$ 2000", "$ 2500", "$ 3000", "$ 3500", "$ 4000", "$ 4500", "$ 5000", "$ 6000", "$ 7000", "$ 8000", "$ 10 000", "$ 20 000", "$ 30 000"};
+
+		default = 0;
+	};
+
+	class Par_numbersRfr
+	{
+		title = "Number of vehicle in alert patrolling to be added. Also depend on numbers of connected players";
+		values[] = {-1, 0, 1, 2, 3};
+		texts[] = { "-1", "Normal  -  (default)", "+1", "+2", "+3" };
+
+		default = 0;
+	};
+
+	class Par_patrolCops
+	{
+		title = "Police patrol count";
+		values[] = {0, 1, 2 ,3 , 4, 5};
+		texts[] = { "0", "1", "2  -  (default)", "3", "4", "5" };
+
+		default = 2;
+	};
+
+	class Par_fatigue
+	{
+		title = "Fatigue";
+		values[] = {1, 0};
+		texts[] = { "On", "Off  -  (default)" };
+
+		default = 0;
+	};
+
+	class Par_playerSpeed
+	{
+		title = "Player speed";
+		values[] = {100, 105, 110, 115, 120, 125};
+		texts[] = { "Vanilla default", "+5%", "+10%", "+15%  -  (default)", "+20%", "+25%" };
+
+		default = 115;
+	};
+
+	class Par_sway
+	{
+		title = "Weapon sway";
+		values[] = {100, 25, 50, 75, 0};
+		texts[] = { "Vanilla default", "-25%", "-50%", "-75%", "No weapon sway  -  (default)" };
+
+		default = 0;
+	};
+
+	class Par_viewThirdPerson
+	{
+		title = "3rd person view allowed";
+		values[] = {0, 1, 2};
+		texts[] = { "Difficulty setting", "Only for driver  -  (default)", "Only for crew" };
+
+		default = 0;
+	};
+
+	class Par_LJcountdown
+	{
+		title = "Little Jacob Bonus countdown";
+		values[] = { 180, 300, 600, 900, 1200};
+		texts[] = {"3 min", "5 min", "10 min  -  (default)", "15 min", "20 min" };
+
+		default = 600;
+	};
+
+	class Par_icon3dMis
+	{
+		title = "3D icons on targets (Missions 'Kill')";
+		values[] = { 1, 2};
+		texts[] = {"Default", "Only if more than 300m" };
+
+		default = 1;
+	};
+
+	class Par_nfo_Empty1
+	{
+		title =  " ";
+		values[] = {0};
+		texts[] = {" "};
+
+		default = 0;
+	};
+
+
+///	// Divers
+	class Par_nfo_Various
+	{
+		title = "-----------|  VARIOUS  |-----------";
+		values[] = {0};
+		texts[] = {""};
+
+		default = 0;
+	};
+
+	class Par_missionOn
+	{
+		title = "Activate missions given by Petrovic";
+		values[] = {1, 0};
+		texts[] = {"Yes  -  (default)", "No"};
+
+		default = 1;
+	};
+
+	class Par_durationTimeGame
+	{
+		title = "Full game lenght. The game ends after the current mission";
+		values[] = {-1, 0, 1, 2, 3, 4, 5, 6};
+		texts[] = {"45min", "1h", "1h20", "1h40", "2h  -  (default)", "2h20", "2h40", "3h"};
+
+		default = 3;
+//		default = -1;
+	};
+
+	class Par_timeBetweenMissions
+	{
+		title = "Time between 2 missions, with a minimum of 10 seconds for technical reasons";
+		values[] = { 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 150, 180, 240, 300 };
+		texts[] = {"5 sec", "10 sec", "20 sec", "30 sec  -  (default)", "40 sec", "50 sec", "60 sec", "70 sec", "80 sec", "90 sec", "100 sec", "120 sec", "150 sec", "180 sec", "240 sec", "300 sec"};
+
+		default = 30;
+	};
+
+	class Par_allowOptics
+	{
+		title = "Scope loot rate";
+		values[] = {0, 1, 2, 3};
+		texts[] = {"No scope (except for some enemies)", "Only for Little Jacob bonus", "Only for mission rewards", "For Little Jacob bonus and mission rewards  -  (default)"};
+
+		default = 3;
+	};
+
+	class Par_allowExplosifs
+	{
+		title = "Explosive charges loot";
+		values[] = {0,1,2,3};
+		texts[] = {"No Satchel/Charge", "Only for Little Jacob bonus", "Only for mission rewards", "For Little Jacob bonus and mission rewards  -  (default)"};
+
+		default = 3;
+	};
+
+	class Par_allowMP3car
+	{
+		title = "MP3 player in civilian/gang vehicles";
+		values[] = {0, 1};
+		texts[] = {"Yes  -  (default)","No"};
+
+		default = 0;
+	};
+
+	class Par_nfo_Empty2
+	{
+		title =  " ";
+		values[] = {0};
+		texts[] = {" "};
+
+		default = 0;
+	};
+
+
+///	// Weather
+	class Par_nfo_Weather
+	{
+		title = "-----------|  WEATHER  |-----------";
+		values[] = {0};
+		texts[] = {""};
+
+		default = 0;
+	};
+
+	class Par_dayTime
+	{
+		title = "Time";
+		values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27};
+		texts[] = {"1h00 AM", "2h00 AM", "3h00 AM", "4h00 AM", "4h30 AM", "5h00 AM", "6h00 AM", "7h00 AM", "8h00 AM", "9h00 AM", "10h00 AM", "11h00 AM", "12h00 PM", "1h00 PM", "2h00 PM", "3h00 PM", "4h00 PM", "5h00 AM", "6h00 PM", "7h00 PM", "8h00 PM", "9h00 PM",  "10h00 PM", "11h00 PM", "12h00 AM", "Random, no night", "Random, no night but twilight", "Random"};
+
+		default = 26;
+	};
+
+	class Par_weather
+	{
+		title = "Clouds";
+		values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+		texts[] = {"Clear sky", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%", "Random"};
+
+		default = 11;
+	};
+
+	class Par_fog
+	{
+		title = "Fog";
+		values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+		texts[] = {"No fog", "Light", "Medium", "Heavy", "Select random [No fog, Light]", "Select random [No fog, Light, Medium]", "Select random [No fog, Light, Medium, Heavy]", "Select random [Light, Medium]", "Select random [Medium, Heavy]", "Select random [Light, Medium, Heavy]"};
+
+		default = 5;
+	};
+
+	class Par_rainLevel
+	{
+		title = "Rain - Present if 'clouds' is at least 50%";
+		values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+		texts[] = {"No rain", "5%", "10%", "15%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%", "Random"};
+
+		default = 0;
+	};
+
+	class Par_nfo_Empty3
+	{
+		title =  " ";
+		values[] = {0};
+		texts[] = {" "};
+
+		default = 0;
+	};
+
+
+///	// Ambient Life
+	class Par_nfo_Ambient
+	{
+		title = "-----------|  AMBIENT LIFE  |-----------";
+		values[] = {0};
+		texts[] = {""};
+
+		default = 0;
+	};
+
+	class Par_nbCivChat
+	{
+		title = "Number of civilians talking/animated";
+		values[] = {0, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 35, 40, 45, 50};
+		texts[] = {"0", "4", "6", "8", "10", "12  -  (default)", "14", "16", "18", "20", "22", "24", "26", "28", "30", "35", "40", "45", "50"};
+
+		default = 12;
+	};
+
+	class Par_nbCivPed
+	{
+		title = "Number of pedestrian civilians";
+		values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50};
+		texts[] = {"0", "1", "2", "3", "4", "5  -  (default)", "6", "7", "8", "9", "10", "15", "20", "25", "30", "35", "40", "45", "50"};
+
+		default = 5;
+	};
+
+	class Par_nbTraffic
+	{
+		title = "Number of civilian vehicles on the road";
+		values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 25};
+		texts[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9  -  (default)", "10", "12", "14", "16", "18", "20", "25"};
+
+		default = 9;
+	};
+
+	class Par_nbVehPrkd
+	{
+		title = "Number of vehicles parked";
+		values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 24, 28, 32};
+		texts[] = {"0", "1", "2", "3", "4", "5", "6", "7  -  (default)", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "24", "28", "32"};
+
+		default = 7;
+	};
+
+	class Par_nbAirLand
+	{
+		title = "Number of flying vehicles available at land";
+		values[] = {0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+		texts[] = {"0", "2", "4", "6", "8  -  (default)", "10", "12", "14", "16", "18", "20"};
+
+		default = 8;
+	};
+
+	class Par_nbEvt
+	{
+		title = "Number of event on the side of the road at the same time (as tow truck, jump, police control, market ...)";
+		values[] = {0, 1, 2, 3, 4, 5};
+		texts[] = {"0", "1", "2  -  (default)", "3", "4", "5"};
+
+		default = 2;
+	};
+
+	class Par_nbFaun
+	{
+		title = "Number of sheep and goat";
+		values[] = {0, 5, 10, 15, 20, 25, 30, 35, 40};
+		texts[] = {"0", "5", "10", "15  -  (default)", "20", "25", "30", "35", "40"};
+
+		default = 15;
+	};
+
+	class Par_nbBoats
+	{
+		title = "Number of boats parked and moving";
+		values[] = {0, 5, 10, 15, 20, 25, 30, 35, 40};
+		texts[] = {"0", "5", "10  -  (default)", "15", "20", "25", "30", "35", "40"};
+
+		default = 10;
+	};
+
+	class Par_fuelTruckSmall
+	{
+		title = "Small fuel tanker truck count on traffic";
+		values[] = {0, 1, 2 ,3 , 4, 5};
+		texts[] = { "0", "1  -  (default)", "2", "3", "4", "5" };
+
+		default = 1;
+	};
+
+	class Par_limitCivIfNight
+	{
+		title = "Between 7 pm and 5 am: 2x fewer civilians, 2x more vehicles parked";
+		values[] = {1, 0};
+		texts[] = { "Yes  -  (default)", "No" };
+
+		default = 1;
+	};
+
+	class Par_nfo_Empty4
+	{
+		title =  " ";
+		values[] = {0};
+		texts[] = {" "};
+
+		default = 0;
+	};
+
+
+///	// Technical
+/*	class Par_nfo_Terr
+	{
+		title = "-----------|  PREVENT ROADKILL  |-----------";
+		values[] = {0};
+		texts[] = {""};
+
+		default = 0;
+	};
+
+	class Par_hideFence
+	{
+		title = "Hide wired fences";
+		values[] = {0, 1};
+		texts[] = {"Yes  -  (default)","No"};
+
+		default = 0;
+	};
+
+	class Par_hideMound
+	{
+		title = "Hide mound";
+		values[] = {0, 1};
+		texts[] = {"Yes  -  (default)","No"};
+
+		default = 0;
+	};
+
+	class Par_hideRock
+	{
+		title = "Hide most of the small rocks";
+		values[] = {0, 1};
+		texts[] = {"Yes  -  (default)","No"};
+
+		default = 0;
+	};
+
+	class Par_nfo_Empty6
+	{
+		title =  " ";
+		values[] = {0};
+		texts[] = {" "};
+
+		default = 0;
+	};
+*/
+
+	class Par_nfo_Perf
+	{
+		title = "-----------|  PERFORMANCE  |-----------";
+		values[] = {0};
+		texts[] = {""};
+
+		default = 0;
+	};
+
+	class Par_ViewDistance
+	{
+		title = "View terrain distance (in metres)";
+		values[] = {0, 500, 750, 1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000};
+		texts[] = {"Player setting", "500", "750", "1000", "1250  -  (default)", "1500", "1750", "2000", "2500", "3000", "3500", "4000"};
+
+		default = 1250;
+
+		file = "setViewDistance.sqf";
+	};
+
+	class Par_ObjectViewDistance
+	{
+		title = "View object distance (in metres)";
+		values[] = {0, 500, 750, 1000, 1250, 1500, 1750, 2000, 2500, 3000, 3500, 4000};
+		texts[] = {"Player setting", "500", "750", "1000", "1250  -  (default)", "1500", "1750", "2000", "2500", "3000", "3500", "4000"};
+
+		default = 1250;
+
+		file = "setObjectViewDistance.sqf";
+	};
+
+	class Par_nfo_Empty5
+	{
+		title =  " ";
+		values[] = {0};
+		texts[] = {" "};
+
+		default = 0;
+	};
+
+
+	class Par_nfo_Reviv
+	{
+		title = "-----------|  REVIVE  |-----------";
+		values[] = {0};
+		texts[] = {""};
+
+		default = 0;
+	};
+
+    #include "paramRevive\paramRevive.hpp"
+};
+
+
+/// LOADOUT & VEHICLE SPAWN
+class CfgRoles
+{
+	class Mafia
+	{
+		displayName = " CHOOSE YOUR VEHICLE   >>>";
+		icon = "";
+	};
+};
+
+class CfgRespawnInventory
+{
+	class normal_SUVblack
+	{
+		displayName = "SUV Black";
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_SUVgrey
+	{
+		displayName = "SUV Grey"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_SUVorange
+	{
+		displayName = "SUV Orange"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_SUVred
+	{
+		displayName = "SUV Red"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_OffroadBeige
+	{
+		displayName = "Offroad Beige"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_OffroadBlue
+	{
+		displayName = "Offroad Blue"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_OffroadDarkred
+	{
+		displayName = "Offroad Darkred"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_OffroadRed
+	{
+		displayName = "Offroad Red"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_OffroadWhite
+	{
+		displayName = "Offroad White"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_TruckBlack
+	{
+		displayName = "Truck Black"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_TruckRed
+	{
+		displayName = "Truck Red"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+	class normal_TruckWhite
+	{
+		displayName = "Truck White"; // Name visible in the menu
+		icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa"; // Icon displayed next to the name
+		role = "Mafia";
+
+		backpack = "B_AssaultPack_blk";
+
+		items[] =
+		{
+        };
+
+        linkedItems[] =
+		{
+			"V_TacVest_blk",
+			"ItemGPS",
+			"ItemMap",
+			"ItemCompass",
+			"ItemWatch"
+		};
+	};
+
+};
+
+
+/// NOTIFICATIONS Settings
+class CfgNotifications
+{
+ 
+	///	// Spawn Info
+		class ntf_spawnNfo
+        {
+                title = "Get out of the spawn zone";
+				iconText = "GO";
+                description = "You have 45 secondes for leave the spawn area.";
+				duration = 10;
+                priority = 93;
+                color[] = {1,1,1,1};
+        };
+
+		class ntf_spawnProtect
+        {
+                title = "Spawn Protect !";
+				iconText = "!";
+                description = "You're not allowed to be in spawn area.";
+				duration = 6;
+                priority = 92;
+                color[] = {1,0,0,0.93};
+        };
+
+		class ntf_openGPS
+        {
+                title = "Mini Map";
+				iconText = "GPS";
+                description = "Open your GPS for have a mini map with your Objectifs and Teammates.";
+				duration = 15;
+                priority = 80;
+                color[] = {0.99,1,0,1};
+        };
+
+		class ntf_mapLimitProtect
+        {
+                title = "Outside of mission area";
+				iconText = "!";
+                description = "Return to your works !";
+				duration = 12;
+                priority = 85;
+                color[] = {1,0,0,0.93};
+        };
+
+
+	///	// Bonus
+		class ntf_areaNotSecure_altis
+        {
+                title = "Altis Department";
+				iconPicture = "a3\ui_f\data\Map\Markers\Flags\altis_ca.paa";
+                description = "<t color='#00bab9'>We are sorry, the area is not secure.<br/>Try again in a few minutes.";
+				duration = 8;
+                priority = 88;
+        };
+
+	///	// Bonus AMB
+		class ntf_bonus_amb_called
+        {
+                title = "Altis Department";
+				iconPicture = "a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+                description = "<t color='#ffffff'>Ambulance request in progress...";
+				duration = 3.5;
+                priority = 88;
+                color[] = {0.85,0.85,0.1,1};
+        };
+
+		class ntf_bonus_amb_spawned
+        {
+                title = "Altis Department";
+				iconPicture = "a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+                description = "<t color='#ffffff'>An ambulance is on way to save you.";
+				duration = 6;
+                priority = 88;
+                color[] = {0.85,0.85,0.1,1};
+        };
+
+		class ntf_bonus_amb_killed_A
+        {
+                title = "Altis Department";
+				iconPicture = "a3\ui_f\data\IGUI\Cfg\Revive\overlayIcons\d100_ca.paa";
+                description = "<t color='#ffffff'>Doctors have had a problem on the road, they will not be able to save you.";
+				duration = 6;
+                priority = 89;
+                color[] = {0.98,0.15,0.15,1};
+        };
+
+		class ntf_bonus_amb_killed_B
+        {
+                title = "Altis Department";
+				iconPicture = "a3\ui_f\data\Map\Markers\Flags\altis_ca.paa";
+                description = "<t color='#00bab9'>Altis Department thanks you for your understanding. See you soon.";
+				duration = 10;
+                priority = 88;
+        };
+
+		class ntf_bonus_amb_isBusy
+        {
+                title = "Altis Department";
+				iconPicture = "a3\ui_f\data\IGUI\Cfg\Actions\heal_ca.paa";
+                description = "<t color='#ffffff'>All ambulances are busy at the moment. Try again in a few minutes.";
+				duration = 8;
+                priority = 90;
+                color[] = {0.85,0.85,0.1,1};
+        };
+
+
+	///	// Bonus LJ
+		class ntf_bonus_LJ_areaNotSecure
+        {
+                title = "Little Jacob Weapons";
+				iconPicture = "DK_Textures\UI\iconActionLJ.paa";
+ 		//		iconText = "LJ";
+				description = "<t color='#92E800'>I'm sorry bro', the area is not secure.<br/>Try again in a few minutes.";
+				duration = 8;
+                priority = 88;
+//                color[] = {0.572,0.909,0,1};
+       };
+
+		class ntf_bonus_LJ_spawned
+        {
+                title = "Little Jacob is on way";
+				iconPicture = "DK_Textures\UI\iconActionLJ.paa";
+                description = "<t color='#ffffff'>I'm coming with loot in my car.";
+				duration = 6;
+                priority = 88;
+       //         color[] = {0.572,0.909,0,1};
+        };
+
+		class ntf_bonus_LJ_isArrived
+        {
+                title = "Little Jacob arrived";
+				iconPicture = "DK_Textures\UI\iconActionLJ.paa";
+                description = "<t color='#ffffff'>I'm here bro'.";
+				duration = 8;
+                priority = 89;
+         //       color[] = {0.572,0.909,0,1};
+        };
+
+		class ntf_bonus_LJ_alreadyInProgress
+        {
+                title = "Little Jacob is not available";
+				iconPicture = "DK_Textures\UI\iconActionLJ.paa";
+                description = "<t color='#ffffff'>Sorry bro', I'm already in delivery.<br/>Try again in a few minutes.";
+				duration = 8;
+                priority = 90;
+                color[] = {0.98,0.15,0.15,1};
+        };
+
+		class ntf_bonus_LJ_noMoney
+        {
+                title = "Little Jacob";
+				iconPicture = "DK_Textures\UI\iconActionLJ.paa";
+                description = "<t color='#ffffff'>Sorry man, but you don't have enough money for that.";
+				duration = 8;
+                priority = 90;
+                color[] = {0.98,0.15,0.15,1};
+        };
+
+		class ntf_bonus_LJ_vehDestroyed
+        {
+                title = "Little Jacob";
+				iconPicture = "DK_Textures\UI\iconActionLJ.paa";
+                description = "<t color='#ffffff'>Fucking shit ! My vehicle was destroyed.";
+				duration = 8;
+                priority = 90;
+                color[] = {0.98,0.15,0.15,1};
+        };
+
+
+
+      class toSea
+        {
+                title = "You have the objective.";
+				iconText = "!";
+                description = "THROW this vehicle to the Sea !";
+				duration = 10;
+                priority = 85;
+                color[] = {1,0.9,0,1};
+        };
+
+      class toPlace
+        {
+                title = "You have the objective.";
+				iconText = "!";
+                description = "BRING this BACK to the YELLOW place on your map.";
+				duration = 10;
+                priority = 85;
+                color[] = {1,0.9,0,1};
+        };
+
+      class objfRepose
+        {
+                title = "Outside Area";
+				iconText = "!";
+                description = "Objective has been repositioned.";
+				duration = 5;
+                priority = 86;
+                color[] = {0.1,0.84,0.84,1};
+        };
+
+ 
+};
+
+
+/// // SOUNDS
+/// MUSIQUES
+class CfgMusic
+{
+  	tracks[]=
+  	{
+      		connectServer
+  	};
+ 
+  	class connectServer
+  	{
+      		name = "connectServer";
+      		sound[] = {\DK_Sounds\music\connectServer.ogg, db + 3, 1};
+  	};
+		
+};
+
+class CfgSounds
+{
+	sounds[] =
+	{
+		policeSpoted01, policeSpoted02, policeSpoted03, woundedFrd, doorCar_op1, doorCar_op2, doorCar_cl1, doorCar_cl2, retireCash, cry01, cry02, cry03, cry04, cry05, seeGun01, seeGun02, seeGun03,
+		dog1a, dog1b, dog2a, dog2b, dog3, alarmCar01, alarmCar02, alarmCar03, A_civSay01, A_civSay02, A_civSay03, A_civSay04, A_civSay05, A_civSay06, A_civSay07, insult01, Flush, FlushBefore,
+		snd_MisCplt1, snd_MisCplt2, snd_MisCplt3, snd_MisCplt4, fail
+	};
+
+///	// Voice Order forces
+	class policeSpoted01
+	{
+		name = "policeSpoted01";
+		sound[] = {"DK_Sounds\vocals\orderForces\copSpoted01.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class policeSpoted02
+	{
+		name = "policeSpoted02";
+		sound[] = {"DK_Sounds\vocals\orderForces\copSpoted02.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class policeSpoted03
+	{
+		name = "policeSpoted03";
+		sound[] = {"DK_Sounds\vocals\orderForces\copSpoted03.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class fbiSpoted01
+	{
+		name = "fbiSpoted01";
+		sound[] = {"DK_Sounds\vocals\orderForces\fibSpoted01.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class fbiSpoted02
+	{
+		name = "fbiSpoted02";
+		sound[] = {"DK_Sounds\vocals\orderForces\fibSpoted02.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class fbiSpoted03
+	{
+		name = "fbiSpoted03";
+		sound[] = {"DK_Sounds\vocals\orderForces\fibSpoted03.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class armySpoted01
+	{
+		name = "armySpoted01";
+		sound[] = {"DK_Sounds\vocals\orderForces\armySpoted01.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class armySpoted02
+	{
+		name = "armySpoted02";
+		sound[] = {"DK_Sounds\vocals\orderForces\armySpoted02.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class armySpoted03
+	{
+		name = "armySpoted03";
+		sound[] = {"DK_Sounds\vocals\orderForces\armySpoted03.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class armySpoted04
+	{
+		name = "armySpoted04";
+		sound[] = {"DK_Sounds\vocals\orderForces\armySpoted04.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class armySpoted05
+	{
+		name = "armySpoted05";
+		sound[] = {"DK_Sounds\vocals\orderForces\armySpoted05.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class policeHeliSpoted01
+	{
+		name = "policeHeliSpoted01";
+		sound[] = {"DK_Sounds\vocals\orderForces\CopHeli01.ogg", 3, 1};
+		titles[] = {1, ""};
+	};
+
+	class policeHeliSpoted02
+	{
+		name = "policeHeliSpoted02";
+		sound[] = {"DK_Sounds\vocals\orderForces\CopHeli02.ogg", 3, 1};
+		titles[] = {1, ""};
+	};
+
+	class policeHeliSpoted03
+	{
+		name = "policeHeliSpoted03";
+		sound[] = {"DK_Sounds\vocals\orderForces\CopHeli03.ogg", 3, 1};
+		titles[] = {1, ""};
+	};
+
+	class policeHeliSpoted04
+	{
+		name = "policeHeliSpoted04";
+		sound[] = {"DK_Sounds\vocals\orderForces\CopHeli04.ogg", 3, 1};
+		titles[] = {1, ""};
+	};
+
+
+///	// Voice Gangs
+	class thugs01a
+	{
+		name = "thugs01a";
+		sound[] = {"DK_Sounds\vocals\gangs\thugs01a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class thugs02a
+	{
+		name = "thugs02a";
+		sound[] = {"DK_Sounds\vocals\gangs\thugs02a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class thugs03a
+	{
+		name = "thugs03a";
+		sound[] = {"DK_Sounds\vocals\gangs\thugs03a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class thugs01b
+	{
+		name = "thugs01b";
+		sound[] = {"DK_Sounds\vocals\gangs\thugs01b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class thugs02b
+	{
+		name = "thugs02b";
+		sound[] = {"DK_Sounds\vocals\gangs\thugs02b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class thugs03b
+	{
+		name = "thugs03b";
+		sound[] = {"DK_Sounds\vocals\gangs\thugs03b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class thugs04b
+	{
+		name = "thugs04b";
+		sound[] = {"DK_Sounds\vocals\gangs\thugs04b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class thugs05b
+	{
+		name = "thugs05b";
+		sound[] = {"DK_Sounds\vocals\gangs\thugs05b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class looters01a
+	{
+		name = "looters01a";
+		sound[] = {"DK_Sounds\vocals\gangs\looters01a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters02a
+	{
+		name = "looters02a";
+		sound[] = {"DK_Sounds\vocals\gangs\looters02a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters03a
+	{
+		name = "looters03a";
+		sound[] = {"DK_Sounds\vocals\gangs\looters03a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters04a
+	{
+		name = "looters04a";
+		sound[] = {"DK_Sounds\vocals\gangs\looters04a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters05a
+	{
+		name = "looters05a";
+		sound[] = {"DK_Sounds\vocals\gangs\looters05a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters01b
+	{
+		name = "looters01b";
+		sound[] = {"DK_Sounds\vocals\gangs\looters01b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters02b
+	{
+		name = "looters02b";
+		sound[] = {"DK_Sounds\vocals\gangs\looters02b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters03b
+	{
+		name = "looters03b";
+		sound[] = {"DK_Sounds\vocals\gangs\looters03b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters04b
+	{
+		name = "looters04b";
+		sound[] = {"DK_Sounds\vocals\gangs\looters04b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters05b
+	{
+		name = "looters05b";
+		sound[] = {"DK_Sounds\vocals\gangs\looters05b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class looters06b
+	{
+		name = "looters06b";
+		sound[] = {"DK_Sounds\vocals\gangs\looters06b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class Ballas01a
+	{
+		name = "Ballas01a";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas01a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas02a
+	{
+		name = "Ballas02a";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas02a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas03a
+	{
+		name = "Ballas03a";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas03a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas04a
+	{
+		name = "Ballas04a";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas04a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas05a
+	{
+		name = "Ballas05a";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas05a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas06a
+	{
+		name = "Ballas06a";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas06a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas01b
+	{
+		name = "Ballas01b";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas01b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas02b
+	{
+		name = "Ballas02b";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas02b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas03b
+	{
+		name = "Ballas03b";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas03b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Ballas04b
+	{
+		name = "Ballas04b";
+		sound[] = {"DK_Sounds\vocals\gangs\Ballas04b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class Triads01a
+	{
+		name = "Triads01a";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads01a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Triads02a
+	{
+		name = "Triads02a";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads02a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Triads03a
+	{
+		name = "Triads03a";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads03a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Triads01b
+	{
+		name = "Triads01b";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads01b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Triads02b
+	{
+		name = "Triads02b";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads02b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Triads03b
+	{
+		name = "Triads03b";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads03b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Triads04b
+	{
+		name = "Triads04b";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads04b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Triads05b
+	{
+		name = "Triads05b";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads05b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Triads06b
+	{
+		name = "Triads06b";
+		sound[] = {"DK_Sounds\vocals\gangs\Triads06b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class Domi01a
+	{
+		name = "Domi01a";
+		sound[] = {"DK_Sounds\vocals\gangs\Domi01a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Domi02a
+	{
+		name = "Domi02a";
+		sound[] = {"DK_Sounds\vocals\gangs\Domi02a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Domi03a
+	{
+		name = "Domi03a";
+		sound[] = {"DK_Sounds\vocals\gangs\Domi03a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Domi04a
+	{
+		name = "Domi04a";
+		sound[] = {"DK_Sounds\vocals\gangs\Domi04a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Domi05a
+	{
+		name = "Domi05a";
+		sound[] = {"DK_Sounds\vocals\gangs\Domi05a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Domi01b
+	{
+		name = "Domi01b";
+		sound[] = {"DK_Sounds\vocals\gangs\Domi01b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Domi02b
+	{
+		name = "Domi02b";
+		sound[] = {"DK_Sounds\vocals\gangs\Domi02b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Domi03b
+	{
+		name = "Domi03b";
+		sound[] = {"DK_Sounds\vocals\gangs\Domi03b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class Alban01a
+	{
+		name = "Alban01a";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban01a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban02a
+	{
+		name = "Alban02a";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban02a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban03a
+	{
+		name = "Alban03a";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban03a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban04a
+	{
+		name = "Alban04a";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban04a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban05a
+	{
+		name = "Alban05a";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban05a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban06a
+	{
+		name = "Alban06a";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban06a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban07a
+	{
+		name = "Alban07a";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban07a.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban01b
+	{
+		name = "Alban01b";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban01b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban02b
+	{
+		name = "Alban02b";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban02b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban03b
+	{
+		name = "Alban03b";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban03b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban04b
+	{
+		name = "Alban04b";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban04b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban05b
+	{
+		name = "Alban05b";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban05b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban06b
+	{
+		name = "Alban06b";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban06b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban07b
+	{
+		name = "Alban07b";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban07b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Alban08b
+	{
+		name = "Alban08b";
+		sound[] = {"DK_Sounds\vocals\gangs\Alban08b.ogg", 2.5, 1};
+		titles[] = {1, ""};
+	};
+
+
+/// // UI
+	class woundedFrd
+	{
+		name = "woundedFrd";
+		sound[] = {"DK_Sounds\ad\wnddFrd.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class woundedFrdD
+	{
+		name = "woundedFrdD";
+		sound[] = {"DK_Sounds\ad\wnddFrd.ogg", 1, 0.7};
+		titles[] = {1, ""};
+	};
+
+/// // Vehicles
+	class doorCar_op1
+	{
+		name = "doorCar_op1";
+		sound[] = {"DK_Sounds\vehicles\doorCar_op1.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class doorCar_op2
+	{
+		name = "doorCar_op2";
+		sound[] = {"DK_Sounds\vehicles\doorCar_op2.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class doorCar_cl1
+	{
+		name = "doorCar_cl1";
+		sound[] = {"DK_Sounds\vehicles\doorCar_cl1.ogg", 1.8, 1};
+		titles[] = {1, ""};
+	};
+
+	class doorCar_cl2
+	{
+		name = "doorCar_cl2";
+		sound[] = {"DK_Sounds\vehicles\doorCar_cl2.ogg", 1.8, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Alarm Cars
+	class alarmCar01
+	{
+		name = "alarmCar01";
+		sound[] = {"DK_Sounds\vehicles\alarmCar01.ogg", 1.1, 1};
+		titles[] = {1, ""};
+	};
+
+	class alarmCar02
+	{
+		name = "alarmCar02";
+		sound[] = {"DK_Sounds\vehicles\alarmCar02.ogg", 1.1, 1};
+		titles[] = {1, ""};
+	};
+
+	class alarmCar03
+	{
+		name = "alarmCar03";
+		sound[] = {"DK_Sounds\vehicles\alarmCar03.ogg", 1.1, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Boost NOS
+	class NOS_01
+	{
+		name = "NOS_01";
+		sound[] = {"DK_Sounds\vehicles\NOS_01.ogg", db+12, 1};
+		titles[] = {1, ""};
+	}
+	
+	class NOS_02
+	{
+		name = "NOS_02";
+		sound[] = {"DK_Sounds\vehicles\NOS_02.ogg", db+12, 1};
+		titles[] = {1, ""};
+	};
+	
+	class NOS_03
+	{
+		name = "NOS_03";
+		sound[] = {"DK_Sounds\vehicles\NOS_03.ogg", db+12, 1};
+		titles[] = {1, ""};
+	};
+	
+	class NOS_04
+	{
+		name = "NOS_04";
+		sound[] = {"DK_Sounds\vehicles\NOS_04.ogg", db+12, 1};
+		titles[] = {1, ""};
+	};
+	
+	class NOS_Start
+	{
+		name = "NOS_Start";
+		sound[] = {"DK_Sounds\vehicles\NOS_Start.ogg", db+12, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Sirens
+	class police_siren01
+	{
+		name = "police_siren01";
+		sound[] = {"DK_Sounds\vehicles\policeSiren01.ogg", +0.32, 1};
+		titles[] = {1, ""};
+	};
+
+	class police_siren02
+	{
+		name = "police_siren02";
+		sound[] = {"DK_Sounds\vehicles\policeSiren02.ogg", +0.32, 1};
+		titles[] = {1, ""};
+	};
+
+
+///	// Civilians
+	class retireCash
+	{
+		name = "retireCash";
+		sound[] = {"DK_Sounds\scripted\retireCash.ogg", db+1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class cry01
+	{
+		name = "cry01";
+		sound[] = {"DK_Sounds\vocals\civs\cry01.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class cry02
+	{
+		name = "cry02";
+		sound[] = {"DK_Sounds\vocals\civs\cry02.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class cry03
+	{
+		name = "cry03";
+		sound[] = {"DK_Sounds\vocals\civs\cry03.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class cry04
+	{
+		name = "cry04";
+		sound[] = {"DK_Sounds\vocals\civs\cry04.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class cry05
+	{
+		name = "cry05";
+		sound[] = {"DK_Sounds\vocals\civs\cry05.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class seeGun01
+	{
+		name = "seeGun01";
+		sound[] = {"DK_Sounds\vocals\civs\seeGun01.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class seeGun02
+	{
+		name = "seeGun02";
+		sound[] = {"DK_Sounds\vocals\civs\seeGun02.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class seeGun03
+	{
+		name = "seeGun03";
+		sound[] = {"DK_Sounds\vocals\civs\A_civSay04.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class bandit01
+	{
+		name = "bandit01";
+		sound[] = {"DK_Sounds\vocals\bandits\bandit01.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class bandit02
+	{
+		name = "bandit02";
+		sound[] = {"DK_Sounds\vocals\bandits\bandit02.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class bandit03
+	{
+		name = "bandit03";
+		sound[] = {"DK_Sounds\vocals\bandits\bandit03.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class bandit04
+	{
+		name = "bandit04";
+		sound[] = {"DK_Sounds\vocals\bandits\bandit04.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class jackedCar01
+	{
+		name = "jackedCar01";
+		sound[] = {"DK_Sounds\vocals\civs\jackedCar01.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class jackedCar02
+	{
+		name = "jackedCar02";
+		sound[] = {"DK_Sounds\vocals\civs\jackedCar02.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Civilians Say to player
+	class A_civSay01
+	{
+		name = "A_civSay01";
+		sound[] = {"DK_Sounds\vocals\civs\A_civSay01.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class A_civSay02
+	{
+		name = "A_civSay02";
+		sound[] = {"DK_Sounds\vocals\civs\A_civSay02.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class A_civSay03
+	{
+		name = "A_civSay03";
+		sound[] = {"DK_Sounds\vocals\civs\A_civSay03.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class A_civSay04
+	{
+		name = "A_civSay04";
+		sound[] = {"DK_Sounds\vocals\civs\A_civSay04.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class A_civSay05
+	{
+		name = "A_civSay05";
+		sound[] = {"DK_Sounds\vocals\civs\A_civSay05.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class A_civSay06
+	{
+		name = "A_civSay06";
+		sound[] = {"DK_Sounds\vocals\civs\A_civSay06.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class A_civSay07
+	{
+		name = "A_civSay07";
+		sound[] = {"DK_Sounds\vocals\civs\A_civSay07.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class B_civSay01
+	{
+		name = "B_civSay01";
+		sound[] = {"DK_Sounds\vocals\civs\B_civSay01.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class B_civSay02
+	{
+		name = "B_civSay02";
+		sound[] = {"DK_Sounds\vocals\civs\B_civSay02.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class B_civSay03
+	{
+		name = "B_civSay03";
+		sound[] = {"DK_Sounds\vocals\civs\B_civSay03.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class B_civSay04
+	{
+		name = "B_civSay04";
+		sound[] = {"DK_Sounds\vocals\civs\B_civSay04.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class C_civSay01
+	{
+		name = "C_civSay01";
+		sound[] = {"DK_Sounds\vocals\civs\C_civSay01.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class C_civSay02
+	{
+		name = "C_civSay02";
+		sound[] = {"DK_Sounds\vocals\civs\C_civSay02.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class C_civSay03
+	{
+		name = "C_civSay03";
+		sound[] = {"DK_Sounds\vocals\civs\C_civSay03.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class C_civSay04
+	{
+		name = "C_civSay04";
+		sound[] = {"DK_Sounds\vocals\civs\C_civSay04.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+	class C_civSay05
+	{
+		name = "C_civSay05";
+		sound[] = {"DK_Sounds\vocals\civs\C_civSay05.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class insult01
+	{
+		name = "insult01";
+		sound[] = {"DK_Sounds\vocals\civs\insult01.ogg",1, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Jacob Bonus
+	class bonus_jacob01
+	{
+		name = "bonus_jacob01";
+		sound[] = {"DK_Sounds\vocals\jacob\bnsJacob01.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class bonus_jacob02
+	{
+		name = "bonus_jacob02";
+		sound[] = {"DK_Sounds\vocals\jacob\bnsJacob02.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Phones
+	class TelCompFalse
+	{
+		name = "TelCompFalse";
+		sound[] = {"DK_Sounds\phones\TelCompFalse.ogg", 0.3, 1};
+		titles[] = {1, ""};
+	};
+
+	class TelCompTrue
+	{
+		name = "TelCompTrue";
+		sound[] = {"DK_Sounds\phones\TelCompTrue.ogg", 0.3, 1};
+		titles[] = {1, ""};
+	};
+
+
+///	// Environement Sounds (at Building)
+	class Flush
+	{
+		name = "Flush";
+		sound[] = {"DK_Sounds\ambients\Flush.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class FlushBefore
+	{
+		name = "FlushBefore";
+		sound[] = {"DK_Sounds\ambients\FlushBefore.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus01
+	{
+		name = "Indus01";
+		sound[] = {"DK_Sounds\ambients\Indus01.ogg", db-1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus02
+	{
+		name = "Indus02";
+		sound[] = {"DK_Sounds\ambients\Indus02.ogg", db-1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus04
+	{
+		name = "Indus04";
+		sound[] = {"DK_Sounds\ambients\Indus04.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus05
+	{
+		name = "Indus05";
+		sound[] = {"DK_Sounds\ambients\Indus05.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus14
+	{
+		name = "Indus14";
+		sound[] = {"DK_Sounds\ambients\Indus14.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus15
+	{
+		name = "Indus15";
+		sound[] = {"DK_Sounds\ambients\Indus15.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus17
+	{
+		name = "Indus17";
+		sound[] = {"DK_Sounds\ambients\Indus17.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus19
+	{
+		name = "Indus19";
+		sound[] = {"DK_Sounds\ambients\Indus19.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus21
+	{
+		name = "Indus21";
+		sound[] = {"DK_Sounds\ambients\Indus21.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus22
+	{
+		name = "Indus22";
+		sound[] = {"DK_Sounds\ambients\Indus22.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus23
+	{
+		name = "Indus23";
+		sound[] = {"DK_Sounds\ambients\Indus23.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Environement Sounds (at Building) in LOOP
+	class Indus03
+	{
+		name = "Indus03";
+		sound[] = {"DK_Sounds\ambients\Indus03.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus07
+	{
+		name = "Indus07";
+		sound[] = {"DK_Sounds\ambients\Indus07.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus08
+	{
+		name = "Indus08";
+		sound[] = {"DK_Sounds\ambients\Indus08.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus09
+	{
+		name = "Indus0";
+		sound[] = {"DK_Sounds\ambients\Indus09.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus10
+	{
+		name = "Indus0";
+		sound[] = {"DK_Sounds\ambients\Indus10.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus11
+	{
+		name = "Indus0";
+		sound[] = {"DK_Sounds\ambients\Indus11.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus12
+	{
+		name = "Indus12";
+		sound[] = {"DK_Sounds\ambients\Indus12.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus13
+	{
+		name = "Indus13";
+		sound[] = {"DK_Sounds\ambients\Indus13.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus16
+	{
+		name = "Indus16";
+		sound[] = {"DK_Sounds\ambients\Indus16.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus18
+	{
+		name = "Indus18";
+		sound[] = {"DK_Sounds\ambients\Indus18.ogg", 1.25, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus20
+	{
+		name = "Indus20";
+		sound[] = {"DK_Sounds\ambients\Indus20.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus24
+	{
+		name = "Indus24";
+		sound[] = {"DK_Sounds\ambients\Indus24.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus26
+	{
+		name = "Indus26";
+		sound[] = {"DK_Sounds\ambients\Indus26.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus27
+	{
+		name = "Indus27";
+		sound[] = {"DK_Sounds\ambients\Indus27.ogg", 0.4, 1};
+		titles[] = {1, ""};
+	};
+
+	class Indus06
+	{
+		name = "Indus06";
+		sound[] = {"DK_Sounds\ambients\Indus06.ogg", db-2, 1};
+		titles[] = {1, ""};
+	};
+
+	class Const01
+	{
+		name = "Const01";
+		sound[] = {"DK_Sounds\ambients\Const01.ogg", 1.7, 1};
+		titles[] = {1, ""};
+	};
+
+	class Const02
+	{
+		name = "Const02";
+		sound[] = {"DK_Sounds\ambients\Const02.ogg", 1.7, 1};
+		titles[] = {1, ""};
+	};
+
+	class Const03
+	{
+		name = "Const03";
+		sound[] = {"DK_Sounds\ambients\Const03.ogg", 1.7, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech01
+	{
+		name = "ambSpeech01";
+		sound[] = {"DK_Sounds\ambients\ambSpeech01.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech02
+	{
+		name = "ambSpeech02";
+		sound[] = {"DK_Sounds\ambients\ambSpeech02.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech03
+	{
+		name = "ambSpeech03";
+		sound[] = {"DK_Sounds\ambients\ambSpeech03.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech04
+	{
+		name = "ambSpeech04";
+		sound[] = {"DK_Sounds\ambients\ambSpeech04.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech05
+	{
+		name = "ambSpeech05";
+		sound[] = {"DK_Sounds\ambients\ambSpeech05.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech06
+	{
+		name = "ambSpeech06";
+		sound[] = {"DK_Sounds\ambients\ambSpeech06.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech07
+	{
+		name = "ambSpeech07";
+		sound[] = {"DK_Sounds\ambients\ambSpeech07.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech08
+	{
+		name = "ambSpeech08";
+		sound[] = {"DK_Sounds\ambients\ambSpeech08.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech09
+	{
+		name = "ambSpeech09";
+		sound[] = {"DK_Sounds\ambients\ambSpeech09.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech10
+	{
+		name = "ambSpeech10";
+		sound[] = {"DK_Sounds\ambients\ambSpeech10.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech11
+	{
+		name = "ambSpeech11";
+		sound[] = {"DK_Sounds\ambients\ambSpeech11.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech12
+	{
+		name = "ambSpeech12";
+		sound[] = {"DK_Sounds\ambients\ambSpeech12.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech13
+	{
+		name = "ambSpeech13";
+		sound[] = {"DK_Sounds\ambients\ambSpeech13.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech14
+	{
+		name = "ambSpeech14";
+		sound[] = {"DK_Sounds\ambients\ambSpeech14.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech15
+	{
+		name = "ambSpeech15";
+		sound[] = {"DK_Sounds\ambients\ambSpeech15.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech16
+	{
+		name = "ambSpeech16";
+		sound[] = {"DK_Sounds\ambients\ambSpeech16.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech17
+	{
+		name = "ambSpeech17";
+		sound[] = {"DK_Sounds\ambients\ambSpeech17.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech18
+	{
+		name = "ambSpeech18";
+		sound[] = {"DK_Sounds\ambients\ambSpeech18.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech19
+	{
+		name = "ambSpeech19";
+		sound[] = {"DK_Sounds\ambients\ambSpeech19.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech20
+	{
+		name = "ambSpeech20";
+		sound[] = {"DK_Sounds\ambients\ambSpeech20.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech21
+	{
+		name = "ambSpeech21";
+		sound[] = {"DK_Sounds\ambients\ambSpeech21.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech22
+	{
+		name = "ambSpeech22";
+		sound[] = {"DK_Sounds\ambients\ambSpeech22.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech23
+	{
+		name = "ambSpeech23";
+		sound[] = {"DK_Sounds\ambients\ambSpeech23.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech24
+	{
+		name = "ambSpeech24";
+		sound[] = {"DK_Sounds\ambients\ambSpeech24.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech25
+	{
+		name = "ambSpeech25";
+		sound[] = {"DK_Sounds\ambients\ambSpeech25.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech26
+	{
+		name = "ambSpeech26";
+		sound[] = {"DK_Sounds\ambients\ambSpeech26.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class ambSpeech27
+	{
+		name = "ambSpeech27";
+		sound[] = {"DK_Sounds\ambients\ambSpeech27.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+
+	class can01
+	{
+		name = "can01";
+		sound[] = {"DK_Sounds\ambients\can01.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class can02
+	{
+		name = "can02";
+		sound[] = {"DK_Sounds\ambients\can02.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class cats01
+	{
+		name = "cats01";
+		sound[] = {"DK_Sounds\ambients\cats01.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class cats02
+	{
+		name = "cats02";
+		sound[] = {"DK_Sounds\ambients\cats02.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class cats03
+	{
+		name = "cats03";
+		sound[] = {"DK_Sounds\ambients\cats03.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+	class dogs01
+	{
+		name = "dogs01";
+		sound[] = {"DK_Sounds\ambients\dogs01.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class dogs02
+	{
+		name = "dogs02";
+		sound[] = {"DK_Sounds\ambients\dogs02.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class dogs03
+	{
+		name = "dogs03";
+		sound[] = {"DK_Sounds\ambients\dogs03.ogg", 1.5, 1};
+		titles[] = {1, ""};
+	};
+
+	class dogs04
+	{
+		name = "dogs04";
+		sound[] = {"DK_Sounds\ambients\dogs04.ogg", db - 11, 1};
+		titles[] = {1, ""};
+	};
+
+
+/// // Jingle
+	class snd_MisCplt1
+	{
+		name = "snd_MisCplt1";
+		sound[] = {"DK_Sounds\jingle\misCplt1.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class snd_MisCplt2
+	{
+		name = "snd_MisCplt2";
+		sound[] = {"DK_Sounds\jingle\misCplt2.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class snd_MisCplt3
+	{
+		name = "snd_MisCplt3";
+		sound[] = {"DK_Sounds\jingle\misCplt3.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class snd_MisCplt4
+	{
+		name = "snd_MisCplt4";
+		sound[] = {"DK_Sounds\jingle\misCplt4.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+
+///	// MP3 Player Car
+	class MP3music01
+	{
+		name = "MP3music01";
+		sound[] = {"DK_Sounds\music\MP3music01.ogg", 1.2, 1};
+		titles[] = {1, ""};
+	};
+
+	class MP3music02
+	{
+		name = "MP3music02";
+		sound[] = {"DK_Sounds\music\MP3music02.ogg", 1.9, 1};
+		titles[] = {1, ""};
+	};
+
+	class MP3music03
+	{
+		name = "MP3music03";
+		sound[] = {"DK_Sounds\music\MP3music03.ogg", 3.1, 1};
+		titles[] = {1, ""};
+	};
+
+	class MP3music04
+	{
+		name = "MP3music04";
+		sound[] = {"DK_Sounds\music\MP3music04.ogg", 2.2, 1};
+		titles[] = {1, ""};
+	};
+
+	class MP3music05
+	{
+		name = "MP3music05";
+		sound[] = {"DK_Sounds\music\MP3music05.ogg", 1.9, 1};
+		titles[] = {1, ""};
+	};
+
+	class MP3music06
+	{
+		name = "MP3music06";
+		sound[] = {"DK_Sounds\music\MP3music06.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class MP3music07
+	{
+		name = "MP3music07";
+		sound[] = {"DK_Sounds\music\MP3music07.ogg", 2, 1};
+		titles[] = {1, ""};
+	};
+
+	class MP3music08
+	{
+		name = "MP3music08";
+		sound[] = {"DK_Sounds\music\MP3music08.ogg", 1.7, 1};
+		titles[] = {1, ""};
+	};
+
+
+
+///	// Musics Gas Station
+	class GasStation01
+	{
+		name = "GasStation01";
+		sound[] = {"DK_Sounds\music\GasStation1.ogg", db-0, 1};
+		titles[] = {1, ""};
+	};
+
+
+// Music houses with dull effect 
+	class Buildings01
+	{
+		name = "Buildings01";
+		sound[] = {"DK_Sounds\music\House01.ogg", db+5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Buildings02
+	{
+		name = "Buildings02";
+		sound[] = {"DK_Sounds\music\House02.ogg", db+5, 1};
+		titles[] = {1, ""};
+	};
+
+	class Buildings03
+	{
+		name = "Buildings03";
+		sound[] = {"DK_Sounds\music\House03.ogg", db+12, 1};
+		titles[] = {1, ""};
+	};
+
+	class Buildings04
+	{
+		name = "Buildings04";
+		sound[] = {"DK_Sounds\music\House04.ogg", db+9.7, 1};
+		titles[] = {1, ""};
+	};
+
+	class Buildings05
+	{
+		name = "Buildings05";
+		sound[] = {"DK_Sounds\music\House05.ogg", db+9.7, 1};
+		titles[] = {1, ""};
+	};
+
+	class Buildings06
+	{
+		name = "Buildings06";
+		sound[] = {"DK_Sounds\music\House06.ogg", db+6.7, 1};
+		titles[] = {1, ""};
+	};
+
+
+///	// Failed
+	class fail
+	{
+		name = "fail";
+//		sound[] = {"DK_Sounds\scripted\fail.ogg", 1.1, 0.8};
+		sound[] = {"DK_Sounds\scripted\fail.ogg", 2.5, 0.8};
+		titles[] = {1, ""};
+	};
+
+///	// Tel missions
+	class GSM
+	{
+		name = "GSM";
+		sound[] = {"DK_Sounds\phones\GSM.ogg", 0.3, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Tel SMS
+	class SMS
+	{
+		name = "SMS";
+		sound[] = {"DK_Sounds\phones\SMS.ogg", 0.3, 1};
+		titles[] = {1, ""};
+	};
+
+///	// Jump
+	class jump
+	{
+		name = "jump";
+		sound[] = {"DK_Sounds\jump\jump.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+
+
+///	// Simple shops
+//	#include "HG\Sounds\HG_Sounds.h"
+};
+
+
+disableChannels[] = {
+
+	{
+		0,		// channel ID
+		true,	// disable text chat
+		true	// disable voice chat
+	},
+
+	{
+		1,
+		false,
+		false
+	},
+
+	{
+		2,
+		true,
+		true
+	},
+
+	{
+		3,
+		false,
+		false
+	},
+
+	{
+		4,
+		false,
+		false
+	},
+
+	{
+		5,
+		true,
+		false
+	},
+
+	{
+		6,
+		false,
+		false
+	}
+};
+
+
+
+/// // ENDING
+class CfgDebriefing
+{
+	class endWin
+	{
+		title = "Your family wins";
+		description = "Congratulations! You are now the only family that can work for Kenny Petrovic on the island of Altis.";
+		pictureBackground = "mtwLogo.jpg";
+	};
+
+	class endLose
+	{
+		title = "Your family loses";
+		description = "All members of your family must leave the island of Altis on pain of retaliation.";
+		pictureBackground = "mtwLogo.jpg";
+	};
+
+
+};
+
+
+// Protect Hack
+/*
+class CfgDisabledCommands
+{
+	class CREATEUNIT
+	{
+		class SYNTAX1
+		{
+			targets[] = {1,0,1};
+			args[] = {{"STRING"},{"ARRAY"}};
+		};
+
+		class SYNTAX2
+		{
+			targets[] = {1,0,1};
+			args[] = {{"GROUP"},{"ARRAY"}};
+		};
+	};
+
+	class CREATEVEHICLELOCAL
+	{
+		class SYNTAX1
+		{
+			targets[] = {1,0,1};
+			args[] = {{"STRING"},{"ARRAY"}};
+		};
+	};
+};
+*/
+
+
+forceRotorLibSimulation = 2;
+
+
+ 
+/// COMMUNITY SCRIPTS
+
+// Repack Mag : Outlaw
+#include "outlw_magRepack\MagRepack_config.hpp"
+
+/*
+// Simple Shops : HoverGuy
+#include "HG\UI\HG_DialogsMaster.h"
+
+class RscTitles
+{
+    #include "HG\UI\Dialogs\HG_HUD.h"
+	#include "HG\UI\Dialogs\HG_Tags.h"
+};
+
+class CfgClient
+{
+    #include "HG\Config\HG_Config.h"
+};
+
+class CfgFunctions 
+{
+	#include "HG\Functions\HG_Functions.h"
+};
+
+
+
